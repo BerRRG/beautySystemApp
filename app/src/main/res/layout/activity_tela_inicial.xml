@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fffbf9"
+    tools:context=".TelaInicialActivity"
+    android:orientation="horizontal">
+
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/profissional"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:background="#994659"
+        android:layout_weight="1"
+        android:text="Profissional" />
+
+    <Button
+        android:id="@+id/sala"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:background="#994659"
+        android:layout_weight="1"
+        android:text="Sala" />
+
+    <Button
+        android:id="@+id/tratamentos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:background="#994659"
+        android:layout_weight="1"
+        android:text="Tratamentos" />
+
+
+</LinearLayout>
