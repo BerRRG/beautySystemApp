@@ -11,11 +11,10 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
-import br.com.beautysystem.R.*
 import kotlinx.android.synthetic.main.activity_tela_inicial.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class MenuActivity  : DebugActivity(), NavigationView.OnNavigationItemSelectedListener{
+class LocalizacaoActivity : DebugActivity(), NavigationView.OnNavigationItemSelectedListener{
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
 
@@ -58,34 +57,28 @@ class MenuActivity  : DebugActivity(), NavigationView.OnNavigationItemSelectedLi
         navigationView.setNavigationItemSelectedListener(this)
     }
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layout.activity_menu)
-
+        setContentView(R.layout.activity_localizacao)
+        val progressBar: ProgressBar = this.progressBar1
 
         // colocar toolbar
         var toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
 
+        // alterar título da ActionBar
+        supportActionBar?.title = "Localizacao"
+
         // up navigation
-        var args = intent.extras
-        var titulo = args.getString("title")
-        supportActionBar?.title = titulo
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         configuraMenuLateral()
 
-
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
-
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -98,7 +91,7 @@ class MenuActivity  : DebugActivity(), NavigationView.OnNavigationItemSelectedLi
                 // dummy thread mimicking some operation whose progress cannot be tracked
 
                 // display the indefinite progressbar
-                this@MenuActivity.runOnUiThread(java.lang.Runnable {
+                this@LocalizacaoActivity.runOnUiThread(java.lang.Runnable {
                     val progressBar : ProgressBar = this.progressBar1
                     progressBar.visibility = View.VISIBLE
                 })
@@ -114,7 +107,7 @@ class MenuActivity  : DebugActivity(), NavigationView.OnNavigationItemSelectedLi
                 }
 
                 // when the task is completed, make progressBar gone
-                this@MenuActivity.runOnUiThread(java.lang.Runnable {
+                this@LocalizacaoActivity.runOnUiThread(java.lang.Runnable {
                     val progressBar : ProgressBar = this.progressBar1
                     progressBar.visibility = View.GONE
                 })

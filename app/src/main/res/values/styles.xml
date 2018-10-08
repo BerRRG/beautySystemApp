@@ -8,10 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:navigationBarColor">#dbb4b3</item>
 
-
     </style>
 
-
-
+    <style name="AppTheme.Toolbar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
 </resources>

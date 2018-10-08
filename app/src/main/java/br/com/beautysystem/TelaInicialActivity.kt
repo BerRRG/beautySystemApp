@@ -1,22 +1,63 @@
 package br.com.beautysystem
 
-import android.app.Activity
+
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.support.design.widget.NavigationView
+import android.support.v4.view.GravityCompat
+import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_tela_inicial.*
-import android.support.v4.view.MenuItemCompat
+import android.support.v7.widget.Toolbar
 import android.widget.Toast
 import br.com.beautysystem.R.id.action_buscar
+import kotlinx.android.synthetic.main.toolbar.*
+import android.support.v7.widget.SearchView
 
+class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSelectedListener{
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.nav_cliente -> {
+                val intent = Intent(this, ClienteActivity::class.java)
+                startActivityForResult(intent,10)
+            }
+            R.id.nav_historico-> {
+                val intent = Intent(this,HistoricoConsultaActivity::class.java)
+                startActivityForResult(intent,10)
+            }
+            R.id.nav_localizacao-> {
+                val intent = Intent(this, LocalizacaoActivity::class.java)
+                startActivityForResult(intent,10)
+            }
+            R.id.nav_agenda-> {
+                val intent = Intent(this, AgendaActivity::class.java)
+                startActivityForResult(intent,10)
+            }
+            R.id.nav_sair -> {
+                var intent = Intent(this,MainActivity::class.java)
+                Toast.makeText(this, "Sair", Toast.LENGTH_SHORT).show()
+                startActivityForResult(intent, 10)
+                finish()
+            }
+        }
+        layoutMenuLateral.closeDrawer(GravityCompat.START)
+        return true
+    }
 
+    fun configuraMenuLateral(){
+        val toolbar = toolbar
+        val layoutMenuLateral = layoutMenuLateral
 
-class TelaInicialActivity : DebugActivity(){
+        var toggle = ActionBarDrawerToggle(this,layoutMenuLateral,toolbar,R.string.drawer_open,R.string.drawer_close)
 
+        layoutMenuLateral.addDrawerListener(toggle)
+        toggle.syncState()
+        val navigationView =  menu_tela_inicial
+        navigationView.setNavigationItemSelectedListener(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,13 +74,21 @@ class TelaInicialActivity : DebugActivity(){
         Toast.makeText(this, "Bem Vindo(a) : $nome", Toast.LENGTH_SHORT).show()
 
 
+
+
+        // colocar toolbar
+        var toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+
+        // alterar título da ActionBar
         supportActionBar?.title = "Home"
+
+        // up navigation
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
-
-       profissional.setOnClickListener{
-            val titulo = "Profissional"
+       novidades.setOnClickListener{
+            val titulo = "Novidades"
             var intent = Intent(this, MenuActivity::class.java)
             var arg = Bundle()
             arg.putString("title", titulo)
@@ -47,8 +96,8 @@ class TelaInicialActivity : DebugActivity(){
             startActivity(intent)
         }
 
-        sala.setOnClickListener{
-            val titulo = "Sala"
+        meus_dados.setOnClickListener{
+            val titulo = "Meus Dados"
             var intent = Intent(this, MenuActivity::class.java)
             var arg = Bundle()
             arg.putString("title", titulo)
@@ -64,7 +113,10 @@ class TelaInicialActivity : DebugActivity(){
             intent.putExtras(arg)
             startActivity(intent)
         }
+
+        configuraMenuLateral()
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -121,21 +173,11 @@ class TelaInicialActivity : DebugActivity(){
                     progressBar.visibility = View.GONE
                 })
             }).start()
-            //Toast.makeText(this, "Clicou atualizar", Toast.LENGTH_SHORT).show()
-        }else if (id == R.id.action_add) {
-            val intent = Intent(this, AdicionarActivity::class.java)
-           startActivityForResult(intent,10)
-
         }else if (id == R.id.action_config) {
             val intent = Intent(this,ConfiguracaoActivity::class.java)
             startActivityForResult(intent, 10)
-        } else if (id == R.id.action_sair) {
-            var intent = Intent(this,MainActivity::class.java)
-            Toast.makeText(this, "Sair", Toast.LENGTH_SHORT).show()
-            startActivityForResult(intent, 10)
-            finish()
-        }else if (id == android.R.id.home){
-            Toast.makeText(this, "Clicou atualizar", Toast.LENGTH_SHORT).show()
+        } else if (id == android.R.id.home){
+            Toast.makeText(this, "Clicou voltar", Toast.LENGTH_SHORT).show()
             finish()
         }
         return super.onOptionsItemSelected(item)

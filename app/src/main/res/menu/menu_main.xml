@@ -14,17 +14,12 @@
         android:title="Atualizar"
         app:showAsAction="ifRoom" />
 
-
-
     <item
         android:id="@+id/action_config"
         android:icon="@drawable/ic_configuracoes_white"
         android:title="Configurações"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_add"
-        android:icon="@drawable/ic_adicionar_white"
-        android:title="Adicionar" />
+
     <item
         android:id="@+id/action_sair"
         android:title="Sair" />

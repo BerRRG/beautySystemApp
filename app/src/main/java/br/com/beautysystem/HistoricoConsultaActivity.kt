@@ -11,11 +11,10 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
-import br.com.beautysystem.R.*
 import kotlinx.android.synthetic.main.activity_tela_inicial.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class MenuActivity  : DebugActivity(), NavigationView.OnNavigationItemSelectedListener{
+class HistoricoConsultaActivity : DebugActivity(), NavigationView.OnNavigationItemSelectedListener{
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
 
@@ -62,43 +61,37 @@ class MenuActivity  : DebugActivity(), NavigationView.OnNavigationItemSelectedLi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layout.activity_menu)
-
+        setContentView(R.layout.activity_historico)
+        val progressBar: ProgressBar = this.progressBar1
 
         // colocar toolbar
         var toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
 
+        // alterar título da ActionBar
+        supportActionBar?.title = "Historico"
+
         // up navigation
-        var args = intent.extras
-        var titulo = args.getString("title")
-        supportActionBar?.title = titulo
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         configuraMenuLateral()
-
 
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
-
-
     }
-
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         //pega o id que definimos
         val id = item?.itemId
         if (id == R.id.action_buscar) {
             Toast.makeText(this, "Clicou buscar", Toast.LENGTH_SHORT).show()
-        } else if (id == R.id.action_atualizar) {
+        } else  if (id == R.id.action_atualizar) {
             Thread(Runnable {
                 // dummy thread mimicking some operation whose progress cannot be tracked
 
                 // display the indefinite progressbar
-                this@MenuActivity.runOnUiThread(java.lang.Runnable {
+                this@HistoricoConsultaActivity.runOnUiThread(java.lang.Runnable {
                     val progressBar : ProgressBar = this.progressBar1
                     progressBar.visibility = View.VISIBLE
                 })
@@ -114,21 +107,15 @@ class MenuActivity  : DebugActivity(), NavigationView.OnNavigationItemSelectedLi
                 }
 
                 // when the task is completed, make progressBar gone
-                this@MenuActivity.runOnUiThread(java.lang.Runnable {
+                this@HistoricoConsultaActivity.runOnUiThread(java.lang.Runnable {
                     val progressBar : ProgressBar = this.progressBar1
                     progressBar.visibility = View.GONE
                 })
             }).start()
-            //Toast.makeText(this, "Clicou atualizar", Toast.LENGTH_SHORT).show()
         }else if (id == R.id.action_config) {
             val intent = Intent(this,ConfiguracaoActivity::class.java)
             startActivityForResult(intent, 10)
-        } else if (id == R.id.action_sair) {
-            var intent = Intent(this,MainActivity::class.java)
-            Toast.makeText(this, "Sair", Toast.LENGTH_SHORT).show()
-            startActivityForResult(intent, 10)
-            finish()
-        }else if (id == android.R.id.home){
+        } else if (id == android.R.id.home){
             Toast.makeText(this, "Clicou voltar", Toast.LENGTH_SHORT).show()
             finish()
         }
